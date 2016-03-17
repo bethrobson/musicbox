@@ -1,7 +1,6 @@
 var Audio = {
 	convolver: undefined,
 	bufferList: undefined,
-	loopRate: 4000,
 	audioContext: new (window.AudioContext || 
 	                   window.webkitAudioContext)(),
 
