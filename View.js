@@ -8,8 +8,8 @@ function View(canvas) {
 
 View.prototype.handleClick = function(event) {
 	var view = this;
-	var x = event.x - view.canvas.offsetLeft;
-	var y = event.y - view.canvas.offsetTop;
+	var x = event.offsetX;
+	var y = event.offsetY;
 	var pos = view.clicks.push({x: x, y: y, radius: 0});
 	Audio.play(x%10);
 	setInterval(function() {
@@ -41,9 +41,10 @@ View.prototype.updateDisplay = function() {
 View.prototype.drawCircle = function(context, x, y, radius, alpha) {
 	context.beginPath();
 	context.arc(x, y, radius, 0, 2*Math.PI);
-	context.fillStyle = "rgba(" + x%256 + ", " + y%256  + ", " + (x * y % 256)+ " ," + alpha + ")"; // better way to create an rgba?
+	context.fillStyle = "rgba(" + x%256 + ", " + y%256  + ", " + (x * y % 256)+ " ," + alpha + ")";
 	context.fill();
 };
+
 
 
 
