@@ -1,25 +1,19 @@
 var Audio = {
-	convolver: undefined,
+	gainNode: undefined,
 	bufferList: undefined,
-	audioContext: new (window.AudioContext || 
+	audioContext: new (window.AudioContext ||
 	                   window.webkitAudioContext)(),
-
 	init: function(bufferList) {
 		this.bufferList = bufferList;
-		var last = bufferList.length - 1;
-		this.convolver = this.audioContext.createConvolver();
-		this.convolver.buffer = this.bufferList[last];
-		var gainNode = this.audioContext.createGain();
-		gainNode.gain.value = 10;
-		this.convolver.connect(gainNode);
-		gainNode.connect(this.audioContext.destination);
-
+		this.gainNode = this.audioContext.createGain();
+		this.gainNode.gain.value = 1;
+		this.gainNode.connect(this.audioContext.destination);
 	},
-
 	play: function(i) {
 		var sound = this.audioContext.createBufferSource();
-		sound.connect(this.convolver);
+		sound.connect(this.gainNode);
 		sound.buffer = this.bufferList[i];
 		sound.start(0);
+		sound.stop(this.audioContext.currentTime + 18);
 	}
-}
+};
