@@ -28,5 +28,5 @@ window.onload = function() {
 		setInterval(view.updateDisplay.bind(view), view.frameRate);
 	}
 
-}
+};
 
